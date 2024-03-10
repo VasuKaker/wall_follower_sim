@@ -56,6 +56,7 @@ class WallFollower(Node):
         print("Sensor range: ", msg.range_min, " to ", msg.range_max)
         # Print the intensity measurements
         print("Intensity measurements: ", msg.intensities)
+        print()
     
 
 def main():

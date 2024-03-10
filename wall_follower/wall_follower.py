@@ -26,14 +26,39 @@ class WallFollower(Node):
         self.SIDE = self.get_parameter('side').get_parameter_value().integer_value
         self.VELOCITY = self.get_parameter('velocity').get_parameter_value().double_value
         self.DESIRED_DISTANCE = self.get_parameter('desired_distance').get_parameter_value().double_value
-		
-	# TODO: Initialize your publishers and subscribers here
 
-    # TODO: Write your callback functions here    
+        self.timer = self.create_timer(1/20, self.publish_data)
 
+        self.subscriber_ls = self.create_subscription(LaserScan, self.SCAN_TOPIC, self.listen_laser_data, 10)
+        self.publisher_data = self.create_publisher(AckermannDriveStamped, self.DRIVE_TOPIC, 10)
+
+    def publish_data(self):
+        msg = AckermannDriveStamped()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.drive.speed = 1.0
+        msg.drive.steering_angle = 0.1
+        self.publisher_data.publish(msg)
+
+    def listen_laser_data(self, msg):
+        # Print the range measurements
+        print("Range measurements: ", msg.ranges)
+
+        # Print the minimum and maximum angles of the scan
+        print("Scan angles: ", msg.angle_min, " to ", msg.angle_max)
+
+        # Print the angular distance between measurements
+        print("Angle increment: ", msg.angle_increment)
+
+        # Print the time between measurements
+        print("Time increment: ", msg.time_increment)
+
+        # Print the minimum and maximum range of the sensor
+        print("Sensor range: ", msg.range_min, " to ", msg.range_max)
+        # Print the intensity measurements
+        print("Intensity measurements: ", msg.intensities)
+    
 
 def main():
-    
     rclpy.init()
     wall_follower = WallFollower()
     rclpy.spin(wall_follower)
@@ -43,4 +68,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    

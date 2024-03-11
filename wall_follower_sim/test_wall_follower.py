@@ -10,7 +10,7 @@ from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import Pose
 from ackermann_msgs.msg import AckermannDriveStamped
 from visualization_msgs.msg import Marker
-from wall_follower.np_encrypt import encode, decode
+from wall_follower_sim.np_encrypt import encode, decode
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener

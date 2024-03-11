@@ -6,7 +6,7 @@ from sensor_msgs.msg import LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped
 from visualization_msgs.msg import Marker
 
-from wall_follower.visualization_tools import VisualizationTools
+from wall_follower_sim.visualization_tools import VisualizationTools
 
 
 class WallFollower(Node):
@@ -21,8 +21,10 @@ class WallFollower(Node):
         self.declare_parameter("desired_distance", "default")
 
         # Fetch constants from the ROS parameter server
-        self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
-        self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
+        # self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
+        # self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
+        self.SCAN_TOPIC = "/scan"
+        self.DRIVE_TOPIC = "/drive"
         self.SIDE = self.get_parameter('side').get_parameter_value().integer_value
         self.VELOCITY = self.get_parameter('velocity').get_parameter_value().double_value
         self.DESIRED_DISTANCE = self.get_parameter('desired_distance').get_parameter_value().double_value
@@ -37,6 +39,8 @@ class WallFollower(Node):
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.drive.speed = 1.0
         msg.drive.steering_angle = 0.1
+
+        self.get_logger().info(self.DRIVE_TOPIC)
         self.publisher_data.publish(msg)
 
     def listen_laser_data(self, msg):

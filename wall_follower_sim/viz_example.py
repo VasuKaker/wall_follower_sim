@@ -8,11 +8,8 @@ from visualization_msgs.msg import Marker
 from wall_follower_sim.visualization_tools import VisualizationTools  # Assuming VisualizationTools is a class in visualization_tools module
 
 class LinePublisher(Node):
-
-        
         # the topics to publish and subscribe to
     WALL_TOPIC = "/wall"
-
     def __init__(self):
         super().__init__('line_publisher')
 

@@ -3,4 +3,5 @@
   <node pkg="wall_follower_sim" name="wall_follower_sim" exec="wall_follower_sim" output="screen">
     <param from="$(find-pkg-share wall_follower_sim)/params.yaml"/>
   </node>
+  
 </launch>

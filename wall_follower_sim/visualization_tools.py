@@ -32,11 +32,17 @@ class VisualizationTools:
         line_strip.color.g = color[2]
 
         # Fill the line with the desired values
-        for xi, yi in zip(x, y):
+        for i, (xi, yi) in enumerate(zip(x, y)):
             p = Point()
-            p.x = xi
-            p.y = yi
+            p.x = float(xi)
+            p.y = float(yi)
+            # print(x)
+            # print(y)
             line_strip.points.append(p)
-
+        # print("")
+        # print("")
+        # print("len(line_strip.points) is: ", len(line_strip.points))
+        # print("")
+        # print("")
         # Publish the line
         publisher.publish(line_strip)
